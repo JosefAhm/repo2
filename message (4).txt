@@ -1,0 +1,122 @@
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import './style.css'
+import { useState, useEffect } from 'react';
+
+function Page() {
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [showError, setShowError] = React.useState(false);
+
+  
+  const handleLogin = () => {
+    if (username === "admin" && password === "password") {
+      setIsLoggedIn(true);
+    } else {
+      setShowError(true);
+    }
+  };
+
+  if (isLoggedIn) {
+    return (
+      <div>
+        <h1>You are logged in!</h1>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <center>
+        <div>
+          <header class="top">
+            <img class="logo" src="talkmore.png" width="150" height="28" />
+          </header>
+        </div>
+      </center>
+      <div className="e-card" id="basic">
+        <div className="e-card-header">
+          <div className="e-card-header-caption">
+            <div className="e-card-title">Agent</div>
+          </div>
+        </div>
+        <div className="e-card-content">
+          <div class="box">
+            <input
+              class="ufield"
+              type="text"
+              placeholder="Username or email"
+              name="usr"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></input>
+          </div>
+          <div class="box">
+            <input
+              class="pfield"
+              type="password"
+              placeholder="Password"
+              name="pswrd"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
+
+          {showError && (
+            <div class="error-container-div">
+              <p class="error-message">Invalid username or password</p>
+            </div>
+          )}
+
+          <div class="button-container-div">
+            <button onClick={handleLogin}>LOGIN</button>
+          </div>
+          <div class="Glemt-passord">
+            <h3>
+              <a class='btn btn-link' href='#'>Glemt passord?</a>
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <center>
+        <div class="footer">
+          <footer>
+            <img class="logo2" src="fiko.png" width="95" height="95" />
+            <h3 class="support">support@fiko.no - tlf 38 70 15 15</h3>
+          </footer>
+        </div>
+      </center>
+
+
+    </div>);
+}
+
+
+function Modal() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => setShowModal(true);
+
+  useEffect(() => {
+    handleShow();
+  }, []);
+
+  return (
+    <>
+      {showModal ? (
+        <div className="modal">
+          <div className="modal-content">
+            <p>Some text in the Modal..</p>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+
+ReactDOM.render(<Page />, document.getElementById("element"));
